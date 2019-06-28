@@ -1,0 +1,36 @@
+class: GameBoard
+
+	function: GameBoard
+		for i=0 to 2
+			for j=0 to 2
+				squares[i][j] = -1;
+			loop
+		loop
+	end
+	
+	function: one_move
+		squares[i][j] = turn;
+	end
+	
+	function: check_who_won
+		if 3 X aligned
+			winner = X;
+			return winner;
+		else if 3 O aligned
+			winner = O;
+			return winner;
+		else
+			winner = draw;
+			return winner;
+		
+		for i=0 to 2
+			for j=0 to 2
+				if squares[i][j] == -1
+					return;
+			loop
+		loop
+				
+		return winner;
+	end
+	
+class: end

@@ -1,0 +1,24 @@
+class: MessageItem
+
+	function: MessageItem
+		Sender = sender;
+		Message = message;
+	end
+	
+	function: getSender
+		return Sender;
+	end
+	
+	function: setSender
+		Sender = sender;
+	end
+	
+	function: getMessage
+		return Message;
+	end
+	
+	function: setMessage
+		Message = message;
+	end
+	
+class: end

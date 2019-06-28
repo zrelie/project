@@ -1,0 +1,27 @@
+class: GetShareAsyncTask
+
+	function: GetShareAsyncTask
+		Index = index;
+	end
+	
+	function: doInBackground
+		SupportData = supportdata;
+		
+		Build_URL();
+		Build_DB_request();
+		
+		if DBresponse is not OK
+			ERROR();
+		
+		while buffer is not null
+			stream += buffer;
+		loop
+		
+		DBobject = ParseJSON(stream);
+		
+		share = DBobject("share");
+		
+		return share;
+	end
+
+class: end

@@ -1,0 +1,8 @@
+class: InstructionsActivity
+
+	function: onCreate
+		if click on StartPlay
+			start_activity(GameActivity);
+	end
+	
+class: end

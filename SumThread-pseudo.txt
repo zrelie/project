@@ -1,0 +1,19 @@
+class: SumThread
+
+	function: SumThread
+		Begin = begin;
+		End = end;
+		ArrayString = arraystring;
+		ArrayBytes = arraybytes;
+	end
+	
+	function: start
+		for i=begin to end
+			ArrayString[i] = ArrayString.replace("\\[|\\]|\\ ", "");
+			ArrayBytes[i] = parseByte(ArrayString[i]);
+		loop
+		
+		updateArray(ArrayBytes);
+	end
+
+class: end

@@ -1,0 +1,53 @@
+class: MyAdapter
+
+	function: MyAdapter
+		Messages = messages;
+	end
+	
+	function: getView
+		currentMessage = Messages[position];
+		
+		if ListItem is null
+			if currentMessage is video
+				if sender is me
+					ListItem = XML(video_me);
+				else
+					ListItem = XML(video_other);
+				
+				Video = currentMessage.getMessage();
+				
+				if click on item
+					video.start();
+					
+			else if currentMessage is image
+				if sender is me
+					ListItem = XML(image_me);
+				else
+					ListItem = XML(image_other);
+					
+				Image = currentMessage.getMessage();
+				
+			else if currentMessage is text
+				if sender is me
+					ListItem = XML(text_me);
+				else
+					ListItem = XML(text_other);
+					
+				Text = currentMessage.getMessage();
+				
+		
+		Sender = currentMessage.getSender();
+		
+		return ListItem;
+		
+	end
+	
+	function: convertStreamToString
+		while stream is not null
+			TheString.append(stream);
+		loop
+		
+		return TheString;
+	end
+	
+class: end

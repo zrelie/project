@@ -1,0 +1,35 @@
+class: SupportData
+
+	function: SupportData
+		Index = 0;
+	end
+	
+	function: SupportData
+		Index = ctr;
+	end
+	
+	function: getDBName
+		return DBName; //Hidden for obvious reasons of data security
+	end
+	
+	function: getApiKey
+		return ApiKey; //Hidden for obvious reasons of data security
+	end
+	
+	function: getBaseUrl
+		return BaseUrl;
+	end
+	
+	function: ApiKeyUrl
+		return ApiKeyUrl;
+	end
+	
+	function: collectionName
+		return collectionName;
+	end
+	
+	function: buildContactsSaveUrl
+		return buildContactsSaveUrl;
+	end
+	
+class: end

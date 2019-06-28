@@ -1,0 +1,130 @@
+class: MainActivity
+
+	function: onCreate
+		DataBase1 = initialize();
+		DataBase2 = initialize();
+		User = SP.getCurrentUser();
+		
+		if click on Take_picture
+			start_activity(camera);
+			
+		if click on Take_video
+			start_activity(camera);
+			
+		if click on Choose_image
+			start_activity(gallery);
+			
+		if click on Send
+			share1 = SecretSharingAlgo_split(message ,1);
+			share2 = SecretSharingAlgo_split(message ,2);
+			
+			DataBase1.store(share1, User);
+			DataBase2.store(share2, User);
+	end
+	
+	
+	function: DataBase2.onChildAdded
+		Share2 = DataBase2.get("Share2");
+		sender = DataBase2.get("Sender");
+		
+		display(sender);
+	end
+	
+	function: DataBase1.onChildAdded
+		Share1 = DataBase1.get("Share1");
+		sender = DataBase1.get("Sender");
+		
+		display(sender);
+	end
+	
+	function: display
+		if Share1 is not null and Share2 is not null
+			if secret is video
+				i = 0;
+				buffer_length = 100000;
+				while i + buffer_length is lower than Share1.length
+					buffer1 = Share1.range(i,i + buffer_length);
+					buffer2 = Share2.range(i,i + buffer_length);
+					secret += SecretSharingAlgo_combine(buffer1, buffer2);
+					i += min(i + buffer_length, i + Share1.length);
+				loop
+				
+				secret_video = secret.toVideo();
+			
+				addLayout(secret_video);
+				
+			else if secret is image
+				secret += SecretSharingAlgo_combine(Share1, Share2);
+				secret_image = secret.toImage();
+				
+				addLayout(secret_image);
+				
+			else if secret is text
+				secret += SecretSharingAlgo_combine(Share1, Share2);
+				secret_text = secret.toString();
+	
+				addLayout(secret_text);
+				
+	end
+
+	
+	function: onMenuClick
+		if click on change_user_menu
+			Change_user();
+	end
+	
+	
+	function: Change_user()
+		user = change_user_menu.getText();
+		SP.setCurrentUser(user);
+	end
+	
+	
+	function: onActivityResult()
+		if result is image from gallery
+			image = bitmap.fromURI(result.URI);
+		else if result is image from camera
+			image = result;
+			
+			share1 = SecretSharingAlgo_split(image.bytes() ,1);
+			share2 = SecretSharingAlgo_split(image.bytes() ,2);
+			
+			DataBase1.store(share1, User);
+			DataBase2.store(share2, User);
+			
+		else if result is video from camera
+			video = result;
+			
+			i = 0;
+			buffer_length = 100000;
+			while i + buffer_length is lower than Share1.length
+				buffer = Share1.range(i,i + buffer_length);
+				Share1 += SecretSharingAlgo_split(buffer, 1);
+				Share2 += SecretSharingAlgo_split(buffer, 2);
+				i += min(i + buffer_length, i + video.length);
+			loop
+						
+			DataBase1.store(share1, User);
+			DataBase2.store(share2, User);
+	end
+	
+	function: addLayout
+		if secret is video
+			if sender is me
+				layout = XML(video_me);
+			else
+				layout = XML(video_other);
+		else if secret is image
+			if sender is me
+				layout = XML(image_me);
+			else
+				layout = XML(image_other);
+		else if secret is text
+			if sender is me
+				layout = XML(text_me);
+			else
+				layout = XML(text_other);
+				
+		Activity.add_layout(layout);
+	end
+			

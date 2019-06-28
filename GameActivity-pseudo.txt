@@ -1,0 +1,61 @@
+class: GameActivity
+
+	function: onCreate
+		if click on square
+			square = turn;
+			
+			if square == password
+				password++;
+			
+			clicked();
+	end
+	
+	function: onResume
+		display_scores();
+	end
+	
+	function: onPause
+		save_scores();
+	end
+	
+	function: initialize_game
+		squares = enabled;
+		turn = X;
+	end
+	
+	function: clicked
+		square = disabled;
+		check_if_winner();
+	end
+	
+	function: check_if_winner
+	
+		if password == 4
+			GoToChat();
+	
+		if X won
+			play_music();
+			X_score++;
+			squares = disabled;
+			winner = X;
+		else if O won
+			play_music();
+			O_score++;
+			squares = disabled;
+			winner = O;
+		else
+			switch_player();
+	end
+	
+	function: switch_player
+		if turn == X
+			turn = O;
+		else
+			turn = X;
+	end
+	
+	function: GoToChat
+		start_activity(chat);
+	end
+	
+class: end

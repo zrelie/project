@@ -1,0 +1,12 @@
+class: MainActiviy2
+
+	function: onCreate
+		if click on startGame
+			start_activity(GameActivity);
+		
+		if click on Instructions
+			start_activity(InstructionsActivity);
+			
+	end
+	
+class: end

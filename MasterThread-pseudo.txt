@@ -1,0 +1,25 @@
+class: MasterThread
+
+	function: MasterThread
+		NUM_OF_THREADS = 8;
+	end
+	
+	function: run
+		Threads = SumThreads[NUM_OF_THREADS];
+		
+		for i=0 to NUM_OF_THREADS
+			Threads[i].start(begin, end);
+		loop
+		
+		while counter is not NUM_OF_THREADS
+			wait();
+		loop
+	end
+	
+	function: updateArray
+		ArrayBytes = arrBytes;
+		counter++;
+		wake_up_thread();
+	end
+	
+class: end
